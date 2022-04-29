@@ -25,12 +25,12 @@ Redis中的事务(transaction)是一组命令的集合。事务同命令一样�
 1.红包会无法领取完。也就是秒杀的库存遗留问题。
 
 ## 使用Lua脚本
-###发红包：
+### 发红包：
 1. 红包数(totalnum) 红包金额(totalmoney) 
 2. 将红包安装红包数划分为数组：红包数组(moneyls)
 3. 将上面的totalnum,totalmoney,moneyls 存储在redis中
 4. 使用set存储抢到红包用户列表
-###抢红包
+### 抢红包
 1. 检查set集合是否有这个用户，保证用户只能抢一次 抢过返回
 2. 检查红包数是否有剩余 没有返回
 3. 开始抢红包，totalnum-1，push一个红包，然后金额totalmoney更新
