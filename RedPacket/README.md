@@ -8,10 +8,10 @@ redis 实现并发抢红包
 如果连接断开，监视和事务都会被自动清除。当然了exec，discard，unwatch命令都会清除连接中的所有监视。
 
 ### 细节：
-1.redis 存储红包数量totalnum,红包金额money,抢到红包用户set集合
-2.判断用户是否抢过
-3.判断红包是否有剩余
-4.开始抢红包，红包数减一，随机产生一个红包金额，更新剩余红包金额，更新抢到红包的用户set集合。
+1. redis 存储红包数量totalnum,红包金额money,抢到红包用户set集合
+2. 判断用户是否抢过
+3. 判断红包是否有剩余
+4. 开始抢红包，红包数减一，随机产生一个红包金额，更新剩余红包金额，更新抢到红包的用户set集合。
 
 ## Redis事务
 Redis中的事务(transaction)是一组命令的集合。事务同命令一样都是Redis最小的执行单位，一个事务中的命令要么都执行，要么都不执行。Redis事务的实现需要用到 MULTI 和 EXEC 两个命令，事务开始的时候先向Redis服务器发送 MULTI 命令，然后依次发送需要在本次事务中处理的命令，最后再发送 EXEC 命令表示事务命令结束。Redis的事务是下面4个命令来实现 
@@ -26,13 +26,13 @@ Redis中的事务(transaction)是一组命令的集合。事务同命令一样�
 
 ## 使用Lua脚本
 ###发红包：
-1.红包数(totalnum) 红包金额(totalmoney) 
-2.将红包安装红包数划分为数组：红包数组(moneyls)
-3.将上面的totalnum,totalmoney,moneyls 存储在redis中
-4.使用set存储抢到红包用户列表
+1. 红包数(totalnum) 红包金额(totalmoney) 
+2. 将红包安装红包数划分为数组：红包数组(moneyls)
+3. 将上面的totalnum,totalmoney,moneyls 存储在redis中
+4. 使用set存储抢到红包用户列表
 ###抢红包
-1.检查set集合是否有这个用户，保证用户只能抢一次 抢过返回
-2.检查红包数是否有剩余 没有返回
-3.开始抢红包，totalnum-1，push一个红包，然后金额totalmoney更新
-4.使用lua脚本完成上面的操作
-5.redis加载lua脚本并执行
+1. 检查set集合是否有这个用户，保证用户只能抢一次 抢过返回
+2. 检查红包数是否有剩余 没有返回
+3. 开始抢红包，totalnum-1，push一个红包，然后金额totalmoney更新
+4. 使用lua脚本完成上面的操作
+5. redis加载lua脚本并执行
