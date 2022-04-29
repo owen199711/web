@@ -1,0 +1,33 @@
+spring:
+  # REDIS (RedisProperties)
+  redis:
+    database: 0
+    host: localhost
+    password:
+    port: 6379
+    timeout: 18000
+
+
+
+
+
+
+
+
+
+#######################
+#### http server   ####
+#######################
+server:
+  ip: localhost
+  port: 8080
+
+
+#######################
+#### LOG           ####
+#######################
+logging:
+  config: classpath:log4j2-dev.yml
+  level:
+    qed.demo: DEBUG
+
